@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="front-semibold text-x1 text-gray-800 dark:text-gray-200 leading-tight">
-            {{('Todo') }}
+            {{__('Todo') }}
         </h2>
     </x-slot>
 
@@ -11,35 +11,30 @@
                 <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
                     @if (request('search'))
                     <h2 class="pb-3 text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                            Search result for : {{ request('search') }}
+                        Search result for : {{ request('search') }}
                     </h2>
                     @endif
                     <form class="flex items-center gap-2">
-                        <x-text-input id="search" name="search" type="text" class="w-full"
-                            placeholder="Search by name or email ..." value="{{ request('search') }}" autofocus/>
+                        <x-text-input id="search" name="search" type="text" class="w-full" placeholder="Search by name or email ..." value="{{ request('search') }}" autofocus />
                         <x-primary-button type="submit">
-                            {{ ('Search') }}
+                            {{ __('Search') }}
                         </x-primary-button>
                     </form>
                 </div>
                 <div class="px-6 text-xl text-gray-900 dark:text-gray-100">
                     <div class="flex items-center justify-between">
-                            <div></div>
+                        <div></div>
 
-                            <div>
-                                @if (session('success'))
-                                <p x-data="{ show: true}" x-show="show" x-transition
-                                    x-init="setTimeout(() => show = false, 5000)"
-                                    class="pb-3 text-sm text-green-600 dark:text-green-400">{{ session('success') }}
-                                </p>
-                                @endif
-                                @if (session('danger'))
-                                <p x-data="{ show: true}" x-show="show" x-transition
-                                    x-init="setTimeout(() => show = false, 5000)"
-                                    class="pb-3 text-sm text-red-600 dark:text-red-400">{{ session('danger') }}
-                                </p>
-                                @endif
-                            </div>
+                        <div>
+                            @if (session('success'))
+                            <p x-data="{ show: true}" x-show="show" x-transition x-init="setTimeout(() => show = false, 5000)" class="pb-3 text-sm text-green-600 dark:text-green-400">{{ session('success') }}
+                            </p>
+                            @endif
+                            @if (session('danger'))
+                            <p x-data="{ show: true}" x-show="show" x-transition x-init="setTimeout(() => show = false, 5000)" class="pb-3 text-sm text-red-600 dark:text-red-400">{{ session('danger') }}
+                            </p>
+                            @endif
+                        </div>
                     </div>
 
                 </div>
@@ -70,16 +65,16 @@
 
                             <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
 
-                                <td scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <p>{{ $user->id }}</p>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <p>{{ $user->id }}</p>
                                 </td>
-<td class="px-6 py-4 font-medium text-gray-900 md:whitespace-nowrap dark:text-white">
-                                <p>{{ $user->name }}</p>
+
+                                <td class="px-6 py-4 font-medium text-gray-900 md:whitespace-nowrap dark:text-white">
+                                    <p>{{ $user->name }}</p>
                                 </td>
 
                                 <td class="hidden px-6 py-4 md:block">
-                                <p>{{ $user->email }}</p>
+                                    <p>{{ $user->email }}</p>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -96,7 +91,24 @@
 
                                 <td class="px-6 py-4">
                                     <div class="flex space-x-3">
-
+                                        @if ($user->is_admin)
+                                        <form action="{{ route('user.removeadmin',$user) }}" method="Post">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="text-blue-600 dark:text-blue-400 whitespace-nowrap">Remove Admin</button>
+                                        </form>
+                                        @else
+                                        <form action="{{ route('user.makeadmin',$user) }}" method="Post">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="text-blue-600 dark:text-blue-400 whitespace-nowrap">Make Admin</button>
+                                        </form>
+                                        @endif
+                                        <form action="{{ route('user.destroy',$user) }}" method="Post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="text-red-600 dark:text-red-400 whitespace-nowrap">Delete</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
