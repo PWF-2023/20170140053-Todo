@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Todo') }}
+            {{ __('Create Todo Category') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form method="post" action="{{ route('todo.store') }}" class="">
+                    <form method="post" action="{{ route('category.store') }}" class="">
                         @csrf
                         @method('post')
                         <div class="mb-6">
@@ -18,25 +18,9 @@
                                 required autofocus autocomplete="title" />
                             <x-input-error class="mt-2" :messages="$errors->get('title')" />
                         </div>
-                        <div class="mb-6">
-                            <x-input-label for="category" :value="__('Category')"/>
-                            <x-select id="category" name="category_id" class="form-select">
-                                <option value="">Empty</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                @endforeach
-                            </x-select>
-                            @error('category_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
-                            <a href="{{ route('todo.index') }}"
+                            <a href="{{ route('category.index') }}"
                                 class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest
                             text-gray-700 uppercase transition duration-150 ease-in-out
                             bg-white border border-gray-300 rounded-md shadow-sm dark:bg-gray-800

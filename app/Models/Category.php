@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Todo extends Model
+class Category extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'title',
         'user_id',
-        'category_id',
-        'is_complete',
+        'title',
     ];
 
     public function user()
@@ -21,8 +18,8 @@ class Todo extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function category()
+    public function todos()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Todo::class);
     }
 }
