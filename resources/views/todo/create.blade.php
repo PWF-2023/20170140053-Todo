@@ -20,7 +20,7 @@
                         </div>
                         <div class="mb-6">
                             <x-input-label for="category" :value="__('Category')"/>
-                            <x-select id="category" name="category_id" class="form-select">
+                            <x-select id="category" name="category_id" class="form-select block w-full mt-1">
                                 <option value="">Empty</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->title }}</option>

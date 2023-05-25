@@ -52,7 +52,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
         if (auth()->user()->id == $category->user_id) {
             return view('category.edit', compact('category'));
@@ -64,7 +64,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
         $request->validate([
             'title' => 'required|max:255',

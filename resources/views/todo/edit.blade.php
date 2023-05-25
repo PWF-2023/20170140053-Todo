@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form method="post" action="{{ route('todo.update', $todo->id) }}" class="">
                         @csrf
-                        @method('put')
+                        @method('patch')
                         <div class="mb-6">
                             <x-input-label for="title" :value="__('Title')" />
                             <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
@@ -20,7 +20,7 @@
                         </div>
                         <div class="mb-6">
                             <x-input-label for="category" :value="__('Category')"/>
-                            <x-select id="category" name="category_id" class="form-select">
+                            <x-select id="category" name="category_id" class="form-select mt-1 block w-full">
                                 <option value="">Empty</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ $category->id == $todo->category_id ? 'selected' : '' }}>{{ $category->title }}</option>
